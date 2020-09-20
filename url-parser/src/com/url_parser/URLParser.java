@@ -8,7 +8,7 @@ public class URLParser {
 
 	public static void main(String...args) {
 		URLParsingHelper helper = new URLParsingHelper();
-		String url = "://localhost:8080";
+		String url = "https://test:pwd@localhost:8080";
 		URL myUrl = null;
 		try {
 			myUrl = helper.getResponse(url);
@@ -18,5 +18,7 @@ public class URLParser {
 		}
 		
 		System.out.println("Protocol : "+myUrl.getProtocol());
+		System.out.println("UserName : "+myUrl.getUserName());
+		System.out.println("Password : "+myUrl.getPassword());
 	}
 }

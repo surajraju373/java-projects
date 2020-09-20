@@ -5,6 +5,8 @@ public class URLParsingHelper {
 	public URL getResponse(String url) throws InCorrectURLException {
 		
 		String protocol = null;
+		String userName = null;
+		String password = null;
 		int i, start=0;
 		for(i=start; url.charAt(i)!='/'; i++) {
 			char c = url.charAt(i);
@@ -17,7 +19,20 @@ public class URLParsingHelper {
 				}
 			}
 		}
-		return new URL.URLBuilder().setProtocol(protocol).build();
+		start += 2;
+		for(i=start; url.charAt(i-1) != '@'; i++) {
+			if(url.charAt(i) == '@') {
+				String s = url.substring(start,i);
+				if(isValidUserNameAndPassword(s)) {
+					String[] upd = getUNAndPwd(s);
+					userName = upd[0];
+					password = upd[1];
+					start = i+1;
+					break;
+				}
+			}
+		}
+		return new URL.URLBuilder().setProtocol(protocol).setUserName(userName).setPassword(password).build();
 	}
 	
 	private boolean isValidProtocol(String protocol) throws InCorrectURLException {
@@ -25,5 +40,16 @@ public class URLParsingHelper {
 			throw new InCorrectURLException("Invalid protocol detected");
 		}
 		return true;
+	}
+	
+	private boolean isValidUserNameAndPassword(String uAndPwd) throws InCorrectURLException{
+		if(! (uAndPwd.split(":").length == 2)) {
+			throw new InCorrectURLException("Invalid username or password detected");
+		}
+		return true;
+	}
+	
+	private String[] getUNAndPwd(String uAndPwd) {
+		return uAndPwd.split(":");
 	}
 }
