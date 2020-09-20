@@ -20,5 +20,6 @@ public class URLParser {
 		System.out.println("Protocol : "+myUrl.getProtocol());
 		System.out.println("UserName : "+myUrl.getUserName());
 		System.out.println("Password : "+myUrl.getPassword());
+		System.out.println("Domain : "+myUrl.getHostAddress());
 	}
 }
