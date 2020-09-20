@@ -9,6 +9,7 @@ public class Test {
 	      try {
 	         URL url = new URL("https://www.amrood.com/index.htm?language=en#j2se");
 	         
+	         
 	         System.out.println("URL is " + url.toString());
 	         System.out.println("protocol is " + url.getProtocol());
 	         System.out.println("authority is " + url.getAuthority());
